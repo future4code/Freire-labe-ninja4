@@ -3,7 +3,7 @@ import styled, { createGlobalStyle }  from "styled-components"
 import logo from "./assets/images/logo.png"
 import Home from "./Pages/Home"
 import Carrinho from "./Pages/Carrinho";
-import DetalheProduto from "./Pages/detalhesProduto";
+import DetalhesServico from "./Pages/detalhesServico";
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -42,15 +42,38 @@ const ButtonArea = styled.div`
 
 export default class App extends React.Component {
   state = {
-    paginaAtual: "home",
-    produto: {
+    paginaAtual: "detalhes",
+    servico: {
       id: 1,
       titulo: "Pasteis",
-      formasPagamento: ["Paypal","Boleto"],
+      formasDePagamento: [
+        "Paypal",
+        "Boleto"
+      ],
       preco: 100,
       prazo: "15/06/1997",
       descricao: "blablabla" 
+    },
+    carrinho: []
+  }
+
+  handleAdicionarServicoAoCarrinho = () => {
+    const { servico, carrinho } = this.state;
+
+    const novoServico = {
+      id: servico.id,
+      titulo: servico.titulo,
+      preco: servico.preco,
+      prazo: servico.prazo,
+      descricao: servico.descricao,
+      formasDePagamento: servico.formasDePagamento
     }
+
+    const novoCarrinho = [...carrinho, novoServico]
+
+    this.setState({
+      carrinho: novoCarrinho
+    })
   }
 
   trocarPagina = () => {
@@ -60,7 +83,7 @@ export default class App extends React.Component {
       case "carrinho":
         return <Carrinho voltar={this.onClickHome}/>
       case "detalhes": 
-        return <DetalheProduto voltar={this.onClickHome} produto={this.state.produto}/>
+        return <DetalhesServico voltarLista={this.onClickHome} servico={this.state.servico} adicionarAoCarrinho={this.handleAdicionarServicoAoCarrinho}/>
       default:
         return <div>Home...</div>
     }
@@ -74,6 +97,8 @@ export default class App extends React.Component {
     this.setState({paginaAtual: "carrinho"})
   }
   render(){
+    const { carrinho } = this.state
+    console.log("carrinho", carrinho)
     return (
       <Container>
         <GlobalStyle/>

@@ -9,6 +9,10 @@ class DetalhesServico extends Component {
     handleRenderFormasDePagamento = () => {
         const { servico} = this.props
 
+        if(!servico){
+            return
+        }
+        
         return servico.formasDePagamento.map((formaDePagamento, index) => {
             return <span key={index}>{formaDePagamento}</span>
         })

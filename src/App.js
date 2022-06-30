@@ -42,17 +42,8 @@ const ButtonArea = styled.div`
 
 export default class App extends React.Component {
   state = {
-    paginaAtual: "detalhes",
+    paginaAtual: "home",
     servico: {
-      id: 1,
-      titulo: "Pasteis",
-      formasDePagamento: [
-        "Paypal",
-        "Boleto"
-      ],
-      preco: 100,
-      prazo: "15/06/1997",
-      descricao: "blablabla" 
     },
     carrinho: []
   }
@@ -83,9 +74,9 @@ export default class App extends React.Component {
       case "carrinho":
         return <Carrinho voltar={this.onClickHome}/>
       case "detalhes": 
-        return <DetalhesServico voltarLista={this.onClickHome} servico={this.state.servico} adicionarAoCarrinho={this.handleAdicionarServicoAoCarrinho}/>
+        return <DetalhesServico voltarLista={this.onClickVoltarLista} servico={this.state.servico} adicionarAoCarrinho={this.handleAdicionarServicoAoCarrinho}/>
       default:
-        return <div>Home...</div>
+        return <Home/>
     }
   }
 
@@ -96,6 +87,13 @@ export default class App extends React.Component {
   onClickCarrinho = () => {
     this.setState({paginaAtual: "carrinho"})
   }
+
+  onClickVoltarLista = () => {
+    this.setState({
+      paginaAtual: "lista"
+    })
+  }
+
   render(){
     const { carrinho } = this.state
     console.log("carrinho", carrinho)

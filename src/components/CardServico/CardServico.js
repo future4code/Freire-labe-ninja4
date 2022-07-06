@@ -2,7 +2,7 @@ import React from "react";
 import { CardsServico } from "./styled";
 
 export default class CardServico extends React.Component {
-
+// push
     render() {
         const day = new Date(this.props.jobInfos.dueDate).getDay()
         const month = new Date(this.props.jobInfos.dueDate).getMonth()
